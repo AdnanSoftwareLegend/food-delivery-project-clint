@@ -1,4 +1,9 @@
-import { FaStar, FaMapMarkerAlt, FaUser, FaArrowRight } from "react-icons/fa";
+import {
+  FaStar,
+  FaMapMarkerAlt,
+  FaArrowRight,
+  FaHeart,
+} from "react-icons/fa";
 import { Link } from "react-router";
 
 const Card = ({ meal }) => {
@@ -9,82 +14,100 @@ const Card = ({ meal }) => {
     price,
     rating,
     chefName,
-    deliveryArea
+    deliveryArea,
   } = meal;
 
+  const chefInitial = chefName ? chefName.charAt(0).toUpperCase() : "C";
+
   return (
-    <div className="group bg-white rounded-[35px] border border-gray-100 shadow-sm hover:shadow-[0_20px_50px_rgba(255,107,107,0.15)] transition-all duration-500 overflow-hidden relative">
-      
-      {/* Image Section with Overlay */}
-      <div className="relative h-56 overflow-hidden">
+    <article className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+
+      {/* IMAGE */}
+      <div className="relative h-48 overflow-hidden">
         <img
           src={foodImage}
           alt={foodName}
-          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+          loading="lazy"
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
-        
-        {/* Floating Price Tag */}
-        <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-4 py-2 rounded-2xl shadow-lg border border-white/40">
-          <span className="text-[#ff6b6b] text-lg font-black tracking-tighter">
-            ${price}
-          </span>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+        {/* Wishlist */}
+        <button className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-gray-700 shadow transition hover:bg-red-500 hover:text-white">
+          <FaHeart size={14} />
+        </button>
+
+        {/* Popular */}
+        <div className="absolute right-3 top-3 rounded-full bg-orange-500 px-3 py-1 text-[11px] font-semibold text-white">
+          Popular
         </div>
 
-        {/* Rating Badge */}
-        <div className="absolute bottom-4 left-4 bg-[#2d2d2d]/80 backdrop-blur-md px-3 py-1.5 rounded-xl flex items-center gap-1.5 border border-white/10">
-          <FaStar className="text-orange-400 text-xs" />
-          <span className="text-white text-[10px] font-black uppercase tracking-widest">
-            {rating || "0.0"}
-          </span>
+        {/* Rating */}
+        <div className="absolute bottom-3 left-3 flex items-center gap-1 rounded-full bg-white px-3 py-1 text-sm font-semibold shadow">
+          <FaStar className="text-yellow-400" size={13} />
+          {rating || "New"}
+        </div>
+
+        {/* Price */}
+        <div className="absolute bottom-3 right-3 rounded-full bg-[#ff6b6b] px-3 py-1 text-sm font-bold text-white shadow">
+          ${price}
         </div>
       </div>
 
-      {/* Content Section */}
-      <div className="p-6 space-y-4">
-        
-        {/* Header: Title & Area */}
-        <div>
-          <h2 className="text-xl font-black text-[#2d2d2d] tracking-tight group-hover:text-[#ff6b6b] transition-colors duration-300 line-clamp-1 uppercase">
-            {foodName}
-          </h2>
-          <div className="flex items-center gap-1.5 mt-1 text-gray-400">
-            <FaMapMarkerAlt className="text-[10px]" />
-            <span className="text-[10px] font-bold uppercase tracking-widest leading-none">
-              {deliveryArea}
-            </span>
-          </div>
+      {/* CONTENT */}
+      <div className="p-4 bg-[#e7d9c4]">
+
+        <h2 className="line-clamp-1 text-lg font-bold text-gray-800 transition group-hover:text-[#ff6b6b]">
+          {foodName}
+
+
+          
+        </h2>
+
+        <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
+          <FaMapMarkerAlt className="text-[#ff6b6b]" size={13} />
+          {deliveryArea}
         </div>
 
-        {/* Divider */}
-        <div className="h-[1px] w-full bg-gray-50"></div>
+        {/* Chef */}
+        <div className="mt-4 flex items-center justify-between rounded-xl bg-gray-50 px-3 py-2">
 
-        {/* Info Grid */}
-        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-[#ff6b6b]/10 flex items-center justify-center text-[#ff6b6b]">
-              <FaUser className="text-xs" />
+
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-[#ff6b6b] to-orange-500 font-semibold text-white">
+              {chefInitial}
             </div>
+
             <div>
-              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">Chef</p>
-              <p className="text-xs font-black text-[#2d2d2d] mt-0.5">{chefName}</p>
+              <p className="text-[11px] uppercase text-gray-400">
+                Chef
+              </p>
+
+              <p className="line-clamp-1 text-sm font-semibold text-gray-800">
+                {chefName}
+              </p>
             </div>
+
           </div>
 
-          {/* Premium "View" Button */}
-          <button className="bg-gray-50 p-3 rounded-2xl text-[#2d2d2d] group-hover:bg-[#ff6b6b] group-hover:text-white transition-all duration-300 shadow-inner">
-            <FaArrowRight className="text-sm" />
-          </button>
+          <span className="text-xs font-semibold text-green-600">
+            🚚 Fast
+          </span>
+
         </div>
 
-        {/* Order Action (Visible on Hover / Focus) */}
-       <Link to={`/meal/${_id}`}>
-  <button className="w-full bg-[#2d2d2d] text-white py-4 rounded-[20px] text-[10px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-[#ff6b6b] transition-all duration-300 active:scale-95">
-    View Details
-  </button>
-</Link>
+        {/* Button */}
+        <Link
+          to={`/meal/${_id}`}
+          className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#ff6b6b] to-orange-500 py-3 text-sm font-semibold text-white transition hover:shadow-lg"
+        >
+          View Details
+          <FaArrowRight className="text-xs transition group-hover:translate-x-1" />
+        </Link>
 
       </div>
-    </div>
+    </article>
   );
 };
 

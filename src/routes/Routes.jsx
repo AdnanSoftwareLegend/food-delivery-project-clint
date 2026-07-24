@@ -20,6 +20,10 @@ import SellerRequest from "../components/Dashboard/Admin/SellerRequest";
 
 import AllMeal from "../pages/AllMeal/AllMeal";
 
+import AboutUs from "../pages/AboutUs/AboutUs";
+import SearchPage from "../pages/SearchPage/SearchPage";
+import Logo from "../components/Shared/Logo/Logo";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -34,14 +38,22 @@ export const router = createBrowserRouter([
         element: <MealDetails></MealDetails>,
       },
 
-{
+      {
         path: "/allmeal",
-        element:<AllMeal></AllMeal>,
+        element: <AllMeal></AllMeal>,
       },
 
       {
         path: "/payment-success",
         Component: PaymentSuccess,
+      },
+      {
+        path: "/search",
+        element: <SearchPage></SearchPage>,
+      },
+      {
+        path: "/aboutus",
+        element: <AboutUs></AboutUs>,
       },
     ],
   },
@@ -49,14 +61,22 @@ export const router = createBrowserRouter([
     path: "/login",
     element: <Login></Login>,
   },
+
   {
     path: "/register",
     element: <Register></Register>,
   },
+
   {
     path: "/profile",
     element: <Profile></Profile>,
   },
+
+ {
+    path: "/logo",
+    element: <Logo></Logo>,
+  },
+
 
   {
     path: "/dashboard",
@@ -75,31 +95,27 @@ export const router = createBrowserRouter([
       //   element: <MyMeals></MyMeals>,
       // },
       {
-        path:"/dashboard/statistics",
-        element:<Statistics></Statistics>
+        path: "/dashboard/statistics",
+        element: <Statistics></Statistics>,
       },
-{
-  path:"/dashboard/manage-user",
-  element:<ManageUser></ManageUser>
-},
-
+      {
+        path: "/dashboard/manage-user",
+        element: <ManageUser></ManageUser>,
+      },
 
       {
         path: "/dashboard/my-orders",
         element: <MyOrder></MyOrder>,
       },
 
-  {
+      {
         path: "/dashboard/seller-request",
         element: <SellerRequest></SellerRequest>,
       },
       {
-path:"/dashboard/become-a-seller",
-element:<BecomeASeller></BecomeASeller>
-
+        path: "/dashboard/become-a-seller",
+        element: <BecomeASeller></BecomeASeller>,
       },
-
-
 
       {
         path: "/dashboard/my-inventory",
@@ -110,6 +126,11 @@ element:<BecomeASeller></BecomeASeller>
         path: "/dashboard/manage-orders",
         element: <ManageOrder></ManageOrder>,
       },
+{
+    path: "/dashboard/profile",
+    element: <Profile></Profile>,
+  },
+
     ],
   },
 ]);

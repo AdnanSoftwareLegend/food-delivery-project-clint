@@ -1,42 +1,77 @@
-import toast from 'react-hot-toast'
-import useAxiosSecure from '../../../hooks/useAxiosSecure'
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const SellerOrderDataRow = ({ order, refetch }) => {
-  const axiosSecure = useAxiosSecure()   
+  const axiosSecure = useAxiosSecure();
 
-  if (!order) return null
+  const [loading, setLoading] = useState(false);
 
-  const { email } = order
+  if (!order) return null;
+
+  const { email } = order;
 
   const handleRoleUpdate = async () => {
     try {
-      await axiosSecure.patch('/update-role', {
-        email,
-        role: 'seller',
-      })
+      setLoading(true);
 
-      toast.success('Role updated successfully!')
-      refetch()
+      await axiosSecure.patch("/update-role", {
+        email,
+        role: "seller",
+      });
+
+      toast.success("Role updated successfully!");
+      refetch();
     } catch (err) {
-      console.log(err)
-      // toast.error(err?.response?.data?.message || 'Something went wrong')
+      console.log(err);
+      toast.error(
+        err?.response?.data?.message || "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <tr className='border-b'>
-      <td className='px-5 py-3'>{email}</td>
+    <tr className="border-b border-gray-200 hover:bg-orange-50 transition duration-300">
 
-      <td className='px-5 py-3'>
+      {/* Email */}
+      <td className="px-5 py-4 text-black font-medium">
+        {email}
+      </td>
+
+      {/* Action */}
+      <td className="px-5 py-4">
         <button
           onClick={handleRoleUpdate}
-          className='px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600'
+          disabled={loading}
+          className="
+            px-5
+            py-2
+            rounded-lg
+            bg-gradient-to-r
+            from-green-500
+            to-emerald-500
+            hover:from-green-600
+            hover:to-emerald-600
+            text-white
+            font-medium
+            shadow-md
+            hover:shadow-lg
+            transition-all
+            duration-300
+            disabled:opacity-50
+            disabled:cursor-not-allowed
+          "
         >
-          Make Seller
+          {loading ? "Updating..." : "Make Seller"}
         </button>
       </td>
     </tr>
-  )
-}
+  );
+};
 
-export default SellerOrderDataRow
+export default SellerOrderDataRow;
+
+
+

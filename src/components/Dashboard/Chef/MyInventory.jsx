@@ -5,14 +5,14 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyInventory = () => {
-  const { user } = useAuth(); // FIXED
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   const { data: meals = [], isLoading } = useQuery({
     queryKey: ["inventory", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const result = await axiosSecure(
+      const result = await axiosSecure.get(
         `/my-inventory/${user?.email}`
       );
 
@@ -20,59 +20,90 @@ const MyInventory = () => {
     },
   });
 
-  // console.log(meals);
-  
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
-    <div className="container mx-auto px-4 sm:px-8">
-      <div className="py-8">
-        <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-          <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-            <table className="min-w-full leading-normal">
-              <thead>
+    <div className="bg-[#eaeff5] min-h-screen p-6">
+      <div className="max-w-7xl mx-auto">
+
+        {/* Header */}
+        <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6 mb-6">
+          <h2 className="text-3xl font-bold text-black">
+            My Inventory
+          </h2>
+
+          <p className="text-gray-600 mt-2">
+            Manage all your meals from one place.
+          </p>
+        </div>
+
+        {/* Table */}
+        <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="table w-full">
+
+              <thead className="bg-orange-500 text-white">
                 <tr>
-                  <th className="px-5 py-3 bg-white border-b text-left text-sm uppercase">
+                  <th className="px-5 py-4 text-left">
                     Image
                   </th>
 
-                  <th className="px-5 py-3 bg-white border-b text-left text-sm uppercase">
+                  <th className="px-5 py-4 text-left">
                     Name
                   </th>
 
-                  <th className="px-5 py-3 bg-white border-b text-left text-sm uppercase">
+                  <th className="px-5 py-4 text-left">
                     Category
                   </th>
 
-                  <th className="px-5 py-3 bg-white border-b text-left text-sm uppercase">
+                  <th className="px-5 py-4 text-left">
                     Price
                   </th>
 
-                  <th className="px-5 py-3 bg-white border-b text-left text-sm uppercase">
+                  <th className="px-5 py-4 text-left">
                     Quantity
                   </th>
 
-                  <th className="px-5 py-3 bg-white border-b text-left text-sm uppercase">
+                  <th className="px-5 py-4 text-left">
                     Delete
                   </th>
 
-                  <th className="px-5 py-3 bg-white border-b text-left text-sm uppercase">
+                  <th className="px-5 py-4 text-left">
                     Update
                   </th>
                 </tr>
               </thead>
 
               <tbody>
-                {meals.map((meal) => (
-                  <MealsDataRow
-                    key={meal._id}
-                    meal={meal}
-                  />
-                ))}
+                {meals.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan="7"
+                      className="text-center py-10 text-gray-500"
+                    >
+                      No meals found.
+                    </td>
+                  </tr>
+                ) : (
+                  meals.map((meal) => (
+                    <MealsDataRow
+                      key={meal._id}
+                      meal={meal}
+                    />
+                  ))
+                )}
               </tbody>
+
             </table>
           </div>
         </div>
+
       </div>
     </div>
   );

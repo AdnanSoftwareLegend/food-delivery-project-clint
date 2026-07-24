@@ -1,5 +1,10 @@
 @import "tailwindcss";
 @import "daisyui/daisyui.css";
+
+body {
+  background-color: #eaeff5;
+}
+
 .swiper-pagination-bullet-active {
     background-color: #ff6b6b !important;
 }
@@ -12,4 +17,8 @@
 .swiper-pagination-bullet-active {
   width: 24px;
   border-radius: 999px;
+}
+
+html {
+  transition: background-color 0.4s ease, color 0.4s ease;
 }

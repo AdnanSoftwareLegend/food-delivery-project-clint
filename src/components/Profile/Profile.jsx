@@ -15,8 +15,8 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 flex items-center justify-center p-6">
-      <div className="w-full max-w-2xl bg-white/70 backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden border border-orange-100">
+    <div className="min-h-screen  flex items-center justify-center p-6">
+      <div className="w-full max-w-2xl shadow-2xlaa backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden border border-orange-100">
         {/* TOP BANNER */}
         <div className="h-32 bg-gradient-to-r from-orange-500 to-red-500"></div>
 
@@ -30,12 +30,12 @@ const Profile = () => {
                 "https://i.ibb.co/mJR9p7C/user-placeholder.png"
               }
               alt="Profile"
-              className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
+              className="w-32 h-32 rounded-full border-4  shadow-lg object-cover"
             />
           </div>
 
           {/* Name */}
-          <h2 className="text-3xl font-extrabold text-gray-800 mt-2">
+          <h2 className="text-3xl font-extrabold  mt-2">
             {user?.displayName || "Anonymous User"}
           </h2>
 
@@ -57,14 +57,14 @@ const Profile = () => {
 
           {/* Role */}
           <div className="mt-3">
-            <span className="px-4 py-1 text-sm bg-blue-100 text-blue-600 rounded-full font-semibold">
+            <span className="px-4 py-1 text-sm  text-blue-600 rounded-full font-semibold">
               {isRoleLoading ? "Loading..." : role || "User"}
             </span>
           </div>
 
           {/* INFO CARDS */}
           <div>
-            <div className="p-4 rounded-xl bg-orange-50 border border-orange-100">
+            <div className="p-4 rounded-xl ">
               <p className="text-sm text-gray-500">User ID</p>
               <p className="font-semibold text-gray-700 break-all">
                 {user?.uid}
@@ -84,14 +84,14 @@ const Profile = () => {
             {/* BACK BUTTON */}
             <button
               onClick={() => navigate(-1)}
-              className="px-6 py-2 rounded-xl bg-gray-200 text-gray-700 font-semibold hover:bg-orange-600 hover:text-white transition"
+              className="px-6 py-2 rounded-xl shadow-2xl bg-orange-500 font-semibold "
             >
               ← Back
             </button>
 
             {/* HOME BUTTON */}
             <Link to="/">
-              <button className="px-6 py-2 rounded-xl bg-gray-200 text-gray-700 font-semibold hover:bg-orange-600 hover:text-white transition">
+              <button className="px-6 py-2 rounded-xl bg-orange-500 text-gray-700 font-semibold hover:bg-orange-600 hover:text-white transition">
                 Go to Home Page
               </button>
             </Link>
